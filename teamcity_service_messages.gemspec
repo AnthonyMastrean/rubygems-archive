@@ -5,7 +5,7 @@ require 'teamcity_service_messages/version'
 
 Gem::Specification.new do |gem|
   gem.name          = 'teamcity_service_messages'
-  gem.version       = TeamcityServiceMessages::VERSION
+  gem.version       = TeamCity::VERSION
   gem.authors       = ['Anthony Mastrean']
   gem.email         = ['anthony.mastrean@gmail.com']
   gem.description   = <<- TEXT
