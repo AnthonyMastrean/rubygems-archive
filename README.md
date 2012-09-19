@@ -17,7 +17,7 @@ Or install it yourself as:
     $ gem install teamcity_service_messages
 
 ## Usage
-The intended use in in a Rake build
+The intended use is in a Rake build
 
     require 'teamcity_service_messages'
     
