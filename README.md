@@ -17,10 +17,14 @@ Or install it yourself as:
     $ gem install teamcity_service_messages
 
 ## Usage
-The intended use is in a Rake build
+The intended use is in a Rake build. The messages will only print if the current build is a TeamCity controlled build. This is determined by testing if the environment includes the well known `TEAMCITY_PROJECT_NAME` variable.
 
     require 'teamcity_service_messages'
     
     task :publish_artifacts do
-        build_artifacts.each { |file| TeamCity::publish_artifact file }
+      build_artifacts.each { |file| TeamCity::publish_artifact file }
+    end
+    
+    task :import_nunit_results do 
+      nunit_results.each { |file| TeamCity::import_data 'nunit', file }
     end
