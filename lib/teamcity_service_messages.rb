@@ -1,4 +1,7 @@
-Dir.glob('./**/*.rb').each { |file| require file }
+lib = File.dirname(File.expand_path(__FILE__))
+Dir.glob("#{lib}/**/*.rb").each do |file|
+  require File.basename(file, File.extname(file))
+end
 
 module TeamCity
   def TeamCity.teamcity_build?
