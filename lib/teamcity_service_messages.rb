@@ -10,15 +10,19 @@ module TeamCityServiceMessages
     end
 
     def teamcity_agent?
-        Dir.exists?('C:/BuildAgent')
+      Dir.exists?('C:/BuildAgent')
     end
 
     def publish_artifacts(path)
-       puts "##teamcity[publishArtifacts '#{path}']" if teamcity_build?
+      publish_message "##teamcity[publishArtifacts '#{path}']"
     end
 
     def import_data(type, path)
-       puts "##teamcity[importData type='#{type}' path='#{path}']" if teamcity_build?
+      publish_message "##teamcity[importData type='#{type}' path='#{path}']"
+    end
+    
+    def publish_message(message)
+      puts message if teamcity_build?
     end
   end
 end
