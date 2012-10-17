@@ -6,11 +6,11 @@ end
 module TeamCityServiceMessages
   class << self
     def teamcity_build?
-      ENV.include?('TEAMCITY_PROJECT_NAME')
+      ENV.include? 'TEAMCITY_PROJECT_NAME'
     end
 
     def teamcity_agent?
-      Dir.exists?('C:/BuildAgent')
+      Dir.exists? 'C:/BuildAgent'
     end
 
     def publish_artifacts(path)
