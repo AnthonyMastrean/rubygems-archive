@@ -3,7 +3,7 @@ Dir.glob(File.join(lib, '/installshield/*.rb')).each do |file|
   require file
 end
 
-def installshield 
+def installshield(*args)
   args ||= []
 
   config = InstallShieldConfiguration.new

@@ -13,10 +13,10 @@ class InstallShieldConfiguration
   def make_parameters
     @parameters ||= []
     @parameters << "-p \"#{windows_path @ism}\""
-    @paramaters.flatten
+    @parameters.flatten
   end
 
   def windows_path(path)
-    path.sub '/' '\\'
+    path.sub '/', '\\'
   end
 end
