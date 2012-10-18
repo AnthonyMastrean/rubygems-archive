@@ -17,11 +17,7 @@ Or install it yourself as:
     $ gem install installshield
 
 ## Usage
-You must `require 'installshield'` to get access to the custom rake task, `installshield`.
-
-    require 'installshield'
-
-Then, you can declare the task and provide a name (normal Rake stuff) and a block.
+You must `require 'installshield'` to get access to the custom rake task, `installshield`. Then, you can declare the task and provide a name and a block (normal Rake stuff).
 
     installshield :msi do |msi|
       # ...
@@ -45,9 +41,9 @@ Or overwrite it.
 
     msi.parameters = [ "-l PATH_TO_RELEASE_FILES=\".\\bin\Release\"" ]
 
-If you put file paths in the `parameters`, InstallShield requires the Windows directory separator (`\\`). The configuration object given in the block has a helper method `windows_path(string)` that you can use. This is especially helpful if your paths have Unix slashes and are stored in variables used elsewhere.
+If you put file paths in the `parameters`, InstallShield requires the Windows directory separator (`\\`). The configuration object given in the block has a helper method, `windows_path(string)`, that you can use. This is especially helpful if your paths have Unix slashes and are stored in variables used elsewhere.
 
-    msi.paramters << "-l PATH_TO_RELEASE_FILES=\"#{msi.windows_path output_path}\""
+    msi.parameters << "-l PATH_TO_RELEASE_FILES=\"#{msi.windows_path output_path}\""
 
 We take care of the ISM project path argument (`-p`) which is required by the builder (and we automatically `windows_path` it).
 
@@ -58,7 +54,7 @@ That's all you need to build an existing ISM project! Putting it all together
     require 'installshield'
     
     installshield :msi do |msi|
-      msi.ism 'path/to/project.ism'
+      msi.ism = 'path/to/project.ism'
       msi.parameters << "-l PATH_TO_RELEASE_FILES=\"#{msi.windows_path output_path}\""
     end
 
@@ -79,7 +75,7 @@ Those are all the properties that we let you change right now. All together, aga
     require 'installshield'
     
     installshield :msi do |msi|
-      msi.ism 'path/to/project.ism'
+      msi.ism = 'path/to/project.ism'
       msi.parameters << "-l PATH_TO_RELEASE_FILES=\"#{msi.windows_path output_path}\""
       msi.product_version = version
       msi.new_product_code!
