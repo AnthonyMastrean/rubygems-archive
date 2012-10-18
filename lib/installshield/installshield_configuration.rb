@@ -1,6 +1,7 @@
 module InstallShield
   class InstallShieldConfiguration
-    attr_accessor :command, :parameters, :ism, :product_version, :product_code, :new_product_code
+    attr_accessor :command, :parameters, :ism, :product_version, :product_code
+    attr_reader :new_product_code
 
     def initialize
       @command = File.join ENV['ProgramFiles(x86)'], 'InstallShield/2010 StandaloneBuild/System/IsCmdBld.exe'
