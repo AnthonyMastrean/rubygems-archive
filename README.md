@@ -1,6 +1,6 @@
 # InstallShield Rake Tasks
 
-Modify and build InstallShield projects.
+Modify and build InstallShield 2010 projects. Support for newer versions is coming!
 
 ## Installation
 
@@ -80,6 +80,12 @@ Those are all the [properties][2] that we let you change right now. All together
       msi.product_version = version
       msi.new_product_code!
     end
+
+## Release Notes
+
+v0.0.16
+* Modify InstallShield 2010 ISM product code and version
+* Build InstallShield 2010 projects
 
 ## Contributing
 
