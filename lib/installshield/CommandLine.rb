@@ -1,11 +1,11 @@
 class CommandLine
   def initialize(executable, parameters = [])
     @executable = escape_string executable
-    @parameters = escape_string parameters.join ' '
+    @parameters = parameters.join ' '
   end
 
   def execute
-    command = "#{executable} #{parameters}"
+    command = "#{@executable} #{@parameters}"
     puts "Executing: #{command}"
     system command
   end
