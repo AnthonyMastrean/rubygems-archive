@@ -25,7 +25,7 @@ You must `require 'installshield'` to get access to the custom rake task, `insta
     
 This block has several parts. Some work together and some are mutually exclusive. Use the Unix directory separator (`/`) unless otherwise specified.
 
-You may override the path to the InstallShield builder (`IsCmdBld.exe`), or we will use the one installed in `ProgramFiles(x86)`.
+You may override the path to the [InstallShield builder][1] (`IsCmdBld.exe`), or we will use the one installed in `ProgramFiles(x86)`.
 
     msi.command = 'path/to/your/builder.exe'
     
@@ -70,7 +70,7 @@ Or, if you want the InstallShield system to generate a UUID for you, using their
 
     msi.new_product_code!
 
-Those are all the properties that we let you change right now. All together, again... 
+Those are all the [properties][2] that we let you change right now. All together, again... 
 
     require 'installshield'
     
@@ -88,3 +88,6 @@ Those are all the properties that we let you change right now. All together, aga
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+ [1]: http://helpnet.installshield.com/installshield16helplib/ISCmdBldParam.htm
+ [2]: http://helpnet.installshield.com/installshield16helplib/IHelpAutoISWiProject.htm
