@@ -1,6 +1,6 @@
 # InstallShield Rake Tasks
 
-Modify and build InstallShield 2010 projects.
+Modify and build InstallShield projects.
 
 ## Installation
 
