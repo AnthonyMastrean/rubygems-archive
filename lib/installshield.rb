@@ -10,7 +10,9 @@ def installshield(*args)
   yield(config)
     
   body = proc {
-    InstallShield::InstallShieldTask.new(config).execute
+    project = InstallShield::IsmProject.new(config.ism)
+    command = InstallShield::CommandLine.new(config.command, config.make_parameters)
+    InstallShield::InstallShieldTask.new(config, project, command).execute
   }
     
   Rake::Task.define_task(*args, &body)

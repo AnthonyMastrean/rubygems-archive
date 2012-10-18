@@ -1,9 +1,9 @@
 module InstallShield
   class InstallShieldTask
-    def initialize(config)
+    def initialize(config, ism_project, command_line)
       @config = config
-      @project = IsmProject.new(config.ism)
-      @command = CommandLine.new(config.command, config.make_parameters)
+      @project = ism_project
+      @command = command_line
     end
 
     def execute
