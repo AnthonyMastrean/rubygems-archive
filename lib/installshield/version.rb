@@ -1,3 +1,3 @@
 module InstallShield
-  VERSION = '16.0.0'
+  VERSION = '0.0.16'
 end
