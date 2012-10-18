@@ -1,7 +1,7 @@
-require 'command_line'
-require 'installshield_configuration'
-require 'installshield_task'
-require 'ism_project'
+require_relative 'installshield/command_line'
+require_relative 'installshield/installshield_configuration'
+require_relative 'installshield/installshield_task'
+require_relative 'installshield/ism_project'
 
 def installshield(*args)
   args ||= []
