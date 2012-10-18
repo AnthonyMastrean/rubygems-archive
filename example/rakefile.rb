@@ -1,5 +1,5 @@
 require 'rake'
-require '../lib/installshield.rb'
+require 'installshield'
 
 task default => [ :msi ]
 

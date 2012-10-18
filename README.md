@@ -1,6 +1,6 @@
-# Installshield
+# InstallShield Rake Tasks
 
-TODO: Write a gem description
+Modify and build InstallShield 2010 projects.
 
 ## Installation
 
@@ -18,7 +18,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'installshield'
+
+    installshield :msi do |msi|
+      msi.ism = './install/myproject.ism'
+      msi.parameters << "-l PATH_TO_RELEASE_FILES=\".\\bin\Release""
+      msi.product_version = '0.0.5.0'
+      msi.new_product_code!
+    end
 
 ## Contributing
 
