@@ -1,7 +1,7 @@
-lib = File.dirname(File.expand_path(__FILE__))
-Dir.glob(File.join(lib, '/installshield/*.rb')).each do |file|
-  require file
-end
+require 'command_line'
+require 'installshield_configuration'
+require 'installshield_task'
+require 'ism_project'
 
 def installshield(*args)
   args ||= []
