@@ -6,11 +6,11 @@ require 'ism_project'
 def installshield(*args)
   args ||= []
 
-  config = InstallShieldConfiguration.new
+  config = InstallShield::InstallShieldConfiguration.new
   yield(config)
     
   body = proc {
-    InstallShieldTask.new(config).execute
+    InstallShield::InstallShieldTask.new(config).execute
   }
     
   Rake::Task.define_task(*args, &body)
