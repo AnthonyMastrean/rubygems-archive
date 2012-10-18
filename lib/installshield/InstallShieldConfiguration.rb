@@ -17,6 +17,6 @@ class InstallShieldConfiguration
   end
 
   def windows_path(path)
-    path.sub '/', '\\'
+    path.gsub '/', '\\'
   end
 end
