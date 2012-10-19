@@ -21,7 +21,7 @@ Use this module to print TeamCity service messages to the console from your Rake
 
     require 'teamcity_service_messages'
 
-The package currently supports the TeamCity service messages [`publishArtifacts`][3] and [`importData`][4]. None of the expected [character escaping][2] is built in. Please escape your own input.
+The package currently supports [`publishArtifacts`][3] and [`importData`][4]. Message [escaping][2] is not built in, please escape your own input.
     
     task :publish_artifacts do
       build_artifacts.each { |file| TeamCity::ServiceMessages.publish_artifact file }
@@ -34,8 +34,12 @@ The package currently supports the TeamCity service messages [`publishArtifacts`
 The messages will only print if the current build is a TeamCity controlled build. This is determined by testing if the environment includes the well known `TEAMCITY_PROJECT_NAME` variable.
 
     TeamCity.teamcity_build?
+
+You can spoof this by setting the environment on the Rake command
+
+    cmd> rake TEAMCITY_PROJECT_NAME='local-build'
     
-You can also test if the current build is running on a TeamCity agent, determined by the existance of the expected agent directory, `c:/BuildAgent`. So it's easily fooled ;)
+You can also test if the current build is running on a TeamCity agent, determined by the existance of the expected agent directory, `c:/BuildAgent`. This is easily spoofed for testing.
 
     TeamCity.teamcity_agent?
 
