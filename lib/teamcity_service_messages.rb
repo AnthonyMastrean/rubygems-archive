@@ -1,10 +1,10 @@
-lib = File.dirname(File.expand_path(__FILE__))
-Dir.glob(File.join(lib, '/teamcity_service_messages/*.rb')).each do |file|
-  require file
-end
+require_relative 'teamcity_service_messages/version'
+require_relative 'teamcity_service_messages/service_messages'
 
-module TeamCityServiceMessages
+module TeamCity
+
   class << self
+
     def teamcity_build?
       ENV.include? 'TEAMCITY_PROJECT_NAME'
     end
@@ -13,16 +13,6 @@ module TeamCityServiceMessages
       Dir.exists? 'C:/BuildAgent'
     end
 
-    def publish_artifacts(path)
-      publish_message "##teamcity[publishArtifacts '#{path}']"
-    end
+  end  
 
-    def import_data(type, path)
-      publish_message "##teamcity[importData type='#{type}' path='#{path}']"
-    end
-    
-    def publish_message(message)
-      puts message if teamcity_build?
-    end
-  end
 end
