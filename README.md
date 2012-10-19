@@ -21,7 +21,7 @@ Use this module to print TeamCity service messages to the console from your Rake
 
     require 'teamcity_service_messages'
 
-The package currently supports the TeamCity service messages `publishArtifacts` and `importData`. None of the expected character escaping is built in. Please escape your own input.
+The package currently supports the TeamCity service messages [`publishArtifacts`][3] and [`importData`][4]. None of the expected [character escaping][2] is built in. Please escape your own input.
     
     task :publish_artifacts do
       build_artifacts.each { |file| TeamCity::ServiceMessages.publish_artifact file }
@@ -45,3 +45,6 @@ v0.0.3
 * New module structure, top level `TeamCity` and the messages are in `ServiceMessage`
 
  [1]: http://confluence.jetbrains.net/display/TCD7/Build+Script+Interaction+with+TeamCity
+ [2]: http://confluence.jetbrains.net/display/TCD7/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ServiceMessages
+ [3]: http://confluence.jetbrains.net/display/TCD7/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-PublishingArtifactswhiletheBuildisStillinProgress
+ [4]: http://confluence.jetbrains.net/display/TCD7/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ImportingXMLReports
