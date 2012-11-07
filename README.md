@@ -48,14 +48,6 @@ v0.0.3
 * Supports messages: `importData` and `publishArtifacts`
 * New module structure, top level `TeamCity` and the messages are in `ServiceMessage`
 
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-
  [1]: http://confluence.jetbrains.net/display/TCD7/Build+Script+Interaction+with+TeamCity
  [2]: http://confluence.jetbrains.net/display/TCD7/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-ServiceMessages
  [3]: http://confluence.jetbrains.net/display/TCD7/Build+Script+Interaction+with+TeamCity#BuildScriptInteractionwithTeamCity-PublishingArtifactswhiletheBuildisStillinProgress
