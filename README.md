@@ -1,9 +1,7 @@
-# InstallShield Rake Tasks
-
+# Rake Tasks for InstallShield
 Modify and build InstallShield 2010 projects. Support for newer versions is coming!
 
 ## Installation
-
 Add this line to your application's Gemfile:
 
     gem 'installshield'
@@ -84,6 +82,7 @@ Those are all the [properties][2] that we let you change right now. All together
 ## Release Notes
 
 v0.0.x
+
 * Modify InstallShield 2010 ISM product code and version
 * Build InstallShield 2010 projects
 
