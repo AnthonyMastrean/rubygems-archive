@@ -83,7 +83,7 @@ Those are all the [properties][2] that we let you change right now. All together
 
 ## Release Notes
 
-v0.0.16
+v0.0.x
 * Modify InstallShield 2010 ISM product code and version
 * Build InstallShield 2010 projects
 
