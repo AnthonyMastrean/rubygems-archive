@@ -4,7 +4,7 @@ Modify and build InstallShield 2010 projects. Support for newer versions is comi
 ## Installation
 Add this line to your application's Gemfile:
 
-    gem 'installshield'
+    gem 'rake-tasks-for-installshield'
 
 And then execute:
 
@@ -12,7 +12,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install installshield
+    $ gem install rake-tasks-for-installshield
 
 ## Usage
 You must `require 'installshield'` to get access to the custom rake task, `installshield`. Then, you can declare the task and provide a name and a block (normal Rake stuff).
