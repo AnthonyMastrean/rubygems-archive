@@ -1,5 +1,4 @@
-require_relative 'teamcity_service_messages/version'
-require_relative 'teamcity_service_messages/service_messages'
+require_relative 'teamcity/service_messages'
 
 module TeamCity
 
