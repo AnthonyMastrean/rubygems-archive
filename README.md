@@ -24,7 +24,7 @@ Use this module to print TeamCity service messages to the console from your Rake
 The package currently supports [`publishArtifacts`][3] and [`importData`][4]. Message [escaping][2] is not built in, please escape your own input.
     
     task :publish_artifacts do
-      build_artifacts.each { |file| TeamCity::ServiceMessages.publish_artifact file }
+      build_artifacts.each { |file| TeamCity::ServiceMessages.publish_artifacts file }
     end
     
     task :import_nunit_results do 
