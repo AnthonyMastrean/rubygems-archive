@@ -1,1 +1,0 @@
-CALL rake.bat %~dp0\rakefile.rb %* TEAMCITY_PROJECT_NAME="fake"
