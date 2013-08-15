@@ -1,4 +1,4 @@
-# Slowrcheetr
+# Slowcheetr
 
 TODO: Write a gem description
 
