@@ -16,7 +16,8 @@ module Devenv
   V9 = 'C:/Program Files (x86)/Microsoft Visual Studio 9.0/Common7/IDE/devenv.com'
 
   class Configuration
-    attr_accessor :command, :working_directory, :solution, :target, :platform, :configuration
+    attr_accessor :command, :parameters, :working_directory
+    attr_accessor :solution, :target, :platform, :configuration
         
     def initialize
       @command = 'devenv'
@@ -27,6 +28,7 @@ module Devenv
       p << @solution.quote
       p << "/#{@target}" if @target
       p << "#{@configuration}|#{@platform}".quote if @configuration and @platform
+      p << @parameters if @parameters
     end
   end
 end
