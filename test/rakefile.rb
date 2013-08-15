@@ -1,18 +1,17 @@
-require 'rake'
-require '../lib/fileupdatetasks'
+require_relative '../lib/slowrcheetah'
 
 task :default do
-    puts 'pick a task'
+  puts 'pick a task'
 end
 
-apprc :apprc do |x|
-    x.files = FileList['./**/app.rc']
-    x.version = '0.0.5.0'
+apprc :apprc do |app|
+  app.files = FileList['**/app.rc']
+  app.version = '0.0.5.0'
 end
 
-appconfig :appconfig do |x|
-    x.files = FileList['./**/*.exe.config']
-    x.replacements = {
-        "/configuration/applicationSettings/*/setting[@name='FullScreen']/value" => 'True',
-        "/configuration/applicationSettings/*/setting[@name='Profile']/value" => 'Simluation', }
+appconfig :appconfig do |app|
+  app.files = FileList['**/*.eappe.config']
+  app.replacements = {
+    "/configuration/applicationSettings/*/setting[@name='FullScreen']/value" => 'True',
+    "/configuration/applicationSettings/*/setting[@name='Profile']/value" => 'Simluation', }
 end
