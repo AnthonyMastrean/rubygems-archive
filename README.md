@@ -1,4 +1,4 @@
-# Slowrcheetah
+# Slowrcheetr
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'slowrcheetah'
+    gem 'slowcheetr'
 
 And then execute:
 
