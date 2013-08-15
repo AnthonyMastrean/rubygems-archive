@@ -1,29 +1,43 @@
 # Tunny
 
-Simple Windows exe wrappers for rake
+Simple rake task wrappers for Windows developer EXEs.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'tunny'
+```ruby
+gem 'tunny'
+```
 
 And then execute:
 
-    $ bundle
+```bat
+cmd> bundle
+```
 
 Or install it yourself as:
 
-    $ gem install tunny
+```bat
+cmd> gem install tunny
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Require the gem at the top of your rakefile.
 
-## Contributing
+```ruby
+require 'tunny'
+```
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+And you'll have access to all of the EXE wrappers. Please reference each task's wiki page for it's usage.
+
+ * `devenv`
+ * `sqlcmd`
+ * `robocopy`
+
+There's one other task that's not an EXE wrapper, but is essential to using rake for TFS systems... `writable`. It looks like the built-in `file` task, but please check the wiki page.
+
+```ruby
+writable 'source/CommonAssemblyInfo.cs'
+```
