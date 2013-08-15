@@ -19,13 +19,12 @@ module Sqlcmd
     end
     
     def args
-      # working/directory cmd> "path/to/sqlcmd.exe" -S server -E -i \"path/to/file.sql\" -x -v var1=\"value1\" var2="\value2\"
       p = []
       p << "-S #{server}" if @server
       p << '-E' if @trusted
-      p << "-i #{input_file.quote}" if @input_file
+      p << "-i #{input_file.quote}" if @input_file # -i "/path/to/input/file"
       p << '-x' if @disable_variable_substitution
-      p << "-v #{@variables.map { |k,v| "#{k}=#{v.quote}" }.join ' '}" if @variables unless @variables.empty?
+      p << "-v #{@variables.map { |k,v| "#{k}=#{v.quote}" }.join ' '}" if @variables unless @variables.empty? # -v var1="val1" var2="val2"
     end
     
     def trusted
