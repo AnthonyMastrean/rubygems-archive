@@ -28,9 +28,5 @@ module Devenv
       p << "/#{@target}" if @target
       p << "#{@configuration}|#{@platform}".quote if @configuration and @platform
     end
-    
-    def to_s
-      args.join ' '
-    end
   end
 end

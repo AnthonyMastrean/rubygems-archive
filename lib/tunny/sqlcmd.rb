@@ -34,9 +34,5 @@ module Sqlcmd
     def disable_variable_substitution
       @disable_variable_substitution = true
     end
-    
-    def to_s
-      args.join ' '
-    end
   end
 end

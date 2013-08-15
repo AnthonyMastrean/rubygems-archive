@@ -12,13 +12,9 @@ module Windows
     
     def execute
       Dir.chdir @working_directory do 
-        puts to_s
+        puts "#{@working_directory}> #{@statement}"
         system @statement
       end
-    end
-    
-    def to_s
-      "#{@working_directory}> #{@statement}"
     end
   end
 end
