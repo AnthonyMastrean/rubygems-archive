@@ -29,6 +29,7 @@ module Devenv
       p << "/#{@target}" if @target
       p << "#{@configuration}|#{@platform}".quote if @configuration and @platform
       p << @parameters if @parameters
+      p
     end
   end
 end

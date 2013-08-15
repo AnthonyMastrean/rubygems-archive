@@ -33,6 +33,7 @@ module Robocopy
       p << "/LOG+:#{@log_append}" if @log_append
       p << '/L' if @dryrun
       p << @parameters if @parameters
+      p
     end
 
     def mirror

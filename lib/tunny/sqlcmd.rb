@@ -21,16 +21,17 @@ module Sqlcmd
     
     def args
       p = []
-      p << "-S #{server}" if @server
-      p << '-E' if @trusted
-      p << "-i #{input_file.quote}" if @input_file # -i "/path/to/input/file"
+      p << "-S #{@server}" if @server
+      p << '-E' if @trusted_connection
+      p << "-i #{@input_file.quote}" if @input_file # -i "/path/to/input/file"
       p << '-x' if @disable_variable_substitution
-      p << "-v #{@variables.map { |k,v| "#{k}=#{v.quote}" }.join ' '}" if @variables unless @variables.empty? # -v var1="val1" var2="val2"
+      p << "-v #{@variables.map { |k,v| "#{k}=#{v.quote}" }.join ' '}" unless @variables.empty? if @variables # -v var1="val1" var2="val2"
       p << @parameters if @parameters
+      p
     end
     
-    def trusted
-      @trusted = true
+    def trusted_connection
+      @trusted_connection = true
     end
     
     def disable_variable_substitution
