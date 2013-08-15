@@ -1,8 +1,6 @@
 require_relative "../lib/tunny"
 
-task :default do 
-  puts "select a named task"
-end
+task :default => [ :sqlcmd, :devenv, :robocopy ]
 
 robocopy :robocopy do |cmd|
   cmd.source = "example/bin/Debug"
