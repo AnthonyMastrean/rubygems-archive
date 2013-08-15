@@ -1,42 +1,54 @@
-def apprc(*args)
-    args || args = []
-        
-    config = Struct.new(:files, :version).new
-    yield(config)
-    
-    body = proc {
-        AppResourceTask.new.execute(config.files, config.version)
-    }
-    
-    Rake::Task.define_task(*args, &body)
+def apprc(*args, &block)
+  config = AppResource::Configuration.new
+  block.call config
+  
+  body = proc {
+    task = AppResource::Task.new config.files, config.version
+    task.execute
+  }
+  
+  Rake::Task.define_task *args, &body
 end
 
-class AppResourceTask
-    # Known encoding/versions of VC++ app.rc
-    ENCODING      = 'UTF-16LE'
-    COMMA_PATTERN = /(\d+\,\d+\,\d+\,\d+)/ #=> version.gsub('.', ',')
-    DOT_PATTERN   = /(\d+\.\d+\.\d+\.\d+)/ #=> version
-    
-    def execute(files, version)
-        comma_pattern_e = regexp_encode(COMMA_PATTERN, ENCODING)
-        dot_pattern_e   = regexp_encode(DOT_PATTERN, ENCODING)
+module AppResource
+  # Known encoding/patterns in the VC++ app.rc
+  ENCODING      = 'UTF-16LE'
+  COMMA_PATTERN = /(\d+\,\d+\,\d+\,\d+)/.encode ENCODING #=> version.gsub('.', ',')
+  DOT_PATTERN   = /(\d+\.\d+\.\d+\.\d+)/.encode ENCODING #=> version
 
-        # Required options for read/write on Windows
-        rx_opt = { mode: 'rb', encoding: "#{ENCODING}" }
-        wx_opt = { mode: 'wb', encoding: "#{ENCODING}" }
-            
-        files.each do |file|
-            content = File.read(file, rx_opt)
-            
-            puts "Updating #{file} to v#{version}"
-            content.gsub!(comma_pattern_e, version.gsub('.', ',').encode(ENCODING))
-            content.gsub!(dot_pattern_e, version.encode(ENCODING))
-            
-            File.open(file, wx_opt) { |f| f.write(content) }
-        end
+  class Configuration
+    attr_accessor :files, :version
+  end
+  
+  class Task
+    # Required options for read/write on Windows
+    @rx_opt = { mode: 'rb', encoding: ENCODING }
+    @wx_opt = { mode: 'wb', encoding: ENCODING }
+  
+    def initialize(files, version)
+      @files = files
+      @version = version
+      @comma_version = version.gsub('.', ',').encode ENCODING
+      @dot_version = version.encode ENCODING
     end
     
-    def regexp_encode(regex, encoding)
-        Regexp.new(regex.to_s.encode(encoding))
+    def execute
+      files.each do |file|
+        puts "Updating #{file} to v#{version}"
+        content = File.read file, @rx_opt
+        content.gsub! COMMA_PATTERN, @comma_version
+        content.gsub! DOT_PATTERN, @dot_version
+            
+        File.open file, @wx_opt do |f| 
+          f.write(content)
+        end
+      end
     end
+  end
+end
+
+class Regexp
+  def encode(encoding)
+    Regexp.new self.to_s.encode encoding
+  end
 end
