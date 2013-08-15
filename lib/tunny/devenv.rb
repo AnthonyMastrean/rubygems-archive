@@ -11,9 +11,9 @@ def devenv(*args, &block)
 end
 
 module Devenv
-  V11 = 'C:/Program Files (x86)/Microsoft Visual Studio 11.0/Common7/IDE/devenv.com'
-  V10 = 'C:/Program Files (x86)/Microsoft Visual Studio 10.0/Common7/IDE/devenv.com'
-  V9 = 'C:/Program Files (x86)/Microsoft Visual Studio 9.0/Common7/IDE/devenv.com'
+  V11 = File.join ENV["VS110COMNTOOLS"], "..\\IDE\\devenv.com" if ENV["VS110COMNTOOLS"]
+  V10 = File.join ENV["VS100COMNTOOLS"], "..\\IDE\\devenv.com" if ENV["VS100COMNTOOLS"]
+  V9 = File.join ENV["VS90COMNTOOLS"], "..\\IDE\\devenv.com" if ENV["VS90COMNTOOLS"]
 
   class Configuration
     attr_accessor :command, :parameters, :working_directory
