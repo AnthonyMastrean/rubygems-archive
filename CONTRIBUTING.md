@@ -1,7 +1,7 @@
 All EXE wrappers should follow the same rules. Start with a new file in `lib/tunny`.
 
 ```bat
-cmd> notepad lib\tunny\ping.rb
+> notepad lib\tunny\ping.rb
 ```
 
 A method in the global scope is required to get the fancy rake-like style. It takes the same arguments as the rake `task` method. We'll fill it in later.
