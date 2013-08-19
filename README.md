@@ -13,13 +13,13 @@ gem 'tunny'
 And then execute:
 
 ```bat
-cmd> bundle
+> bundle
 ```
 
 Or install it yourself as:
 
 ```bat
-cmd> gem install tunny
+> gem install tunny
 ```
 
 ## Usage
