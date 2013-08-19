@@ -13,12 +13,11 @@ end
 module Attrib
   class Configuration
     attr_accessor :command, :working_directory, :parameters
-    attr_accessor :filename, :readonly
+    attr_accessor :filename
   
     def args
       p = []
       p << @filename.quote
-      p << "#{to_prefix @readonly}R"
       p << "/S" if @recurse
       p << "/D" if @include_folders
       p << @parameters if @parameters
@@ -33,8 +32,10 @@ module Attrib
       @include_folders = true
     end
     
-    def to_prefix(val)
-      val ? "+" : "-"
+    def to_prefix(bool)
+      bool ? "+" : "-"
     end
+    
+    private :to_prefix
   end
 end
