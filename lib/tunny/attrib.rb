@@ -28,11 +28,11 @@ module Attrib
       p
     end
     
-    def set(opts = [])
+    def set(opts])
       @set = opts
     end
     
-    def clear(opts = [])
+    def clear(opts)
       @clear = opts
     end
     
