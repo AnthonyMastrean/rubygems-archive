@@ -19,4 +19,8 @@ class String
   def windows_path
     gsub "/", "\\"
   end
+  
+  def posix_path
+    gsub "\\", "/"
+  end
 end
