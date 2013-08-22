@@ -3,8 +3,8 @@ def devenv(*args, &block)
   block.call config
   
   body = proc { 
-    cmd = Windows::Cli.new config
-    cmd.execute
+    task = Cli::Task.new config
+    task.execute
   }
   
   Rake::Task.define_task *args, &body
@@ -15,8 +15,7 @@ module Devenv
   V10 = File.join ENV["VS100COMNTOOLS"], "..\\IDE\\devenv.com" if ENV["VS100COMNTOOLS"]
   V9 = File.join ENV["VS90COMNTOOLS"], "..\\IDE\\devenv.com" if ENV["VS90COMNTOOLS"]
 
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
+  class Configuration < Cli::Configuration
     attr_accessor :solution, :target, :platform, :configuration
         
     def initialize

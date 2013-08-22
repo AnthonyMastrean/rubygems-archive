@@ -3,16 +3,15 @@ def sqlcmd(*args, &block)
   block.call config
   
   body = proc { 
-    cmd = Windows::Cli.new config
-    cmd.execute
+    task = Cli::Task.new config
+    task.execute
   }
   
   Rake::Task.define_task *args, &body
 end
 
 module Sqlcmd
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
+  class Configuration < Cli::Configuration
     attr_accessor :server, :input_file, :variables
     
     def initialize
@@ -23,9 +22,11 @@ module Sqlcmd
       p = []
       p << "-S #{@server}" if @server
       p << "-E" if @trusted_connection
-      p << "-i #{@input_file.quote}" if @input_file # -i "/path/to/input/file"
+      # -i "/path/to/input/file"
+      p << "-i #{@input_file.quote}" if @input_file
       p << "-x" if @disable_variable_substitution
-      p << "-v #{@variables.map { |k,v| "#{k}=#{v.quote}" }.join " "}" unless @variables.empty? if @variables # -v var1="val1" var2="val2"
+      # -v var1="val1" var2="val2"
+      p << "-v #{@variables.map { |k,v| "#{k}=#{v.quote}" }.join " "}" unless @variables.empty? if @variables 
       p << @parameters if @parameters
       p
     end

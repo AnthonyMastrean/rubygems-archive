@@ -3,8 +3,8 @@ def attrib(*args, &block)
   block.call config
 
   body = proc { 
-    cmd = Windows::Cli.new config
-    cmd.execute
+    task = Cli::Task.new config
+    task.execute
   }
 
   Rake::Task.define_task *args, &body
@@ -13,8 +13,7 @@ end
 module Attrib
   OPTS = { readonly: "R", archive: "A", system: "S", hidden: "H" }
 
-  class Configuration
-    attr_accessor :command, :working_directory, :parameters
+  class Configuration < Cli::Configuration
     attr_accessor :filename
 
     def initialize

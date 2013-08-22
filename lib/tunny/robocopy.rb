@@ -2,18 +2,16 @@ def robocopy(*args, &block)
   config = Robocopy::Configuration.new
   block.call config
   
-  body = proc { 
-    # Robocopy has non-zero successful exit codes (http://ss64.com/nt/robocopy-exit.html)
-    cmd = Windows::Cli.new config
-    cmd.execute || $?.exitstatus < 8
+  body = proc {     
+    task = Robocopy::Task.new Cli::Task.new config
+    task.execute
   }
   
   Rake::Task.define_task *args, &body
 end
 
 module Robocopy
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
+  class Configuration < Cli::Configuration
     attr_accessor :source, :destination, :files, :log, :exclude_files, :exclude_dirs
         
     def initialize
@@ -45,6 +43,17 @@ module Robocopy
     
     def dryrun
       @dryrun = true
+    end
+  end
+  
+  class Task
+    def initialize(task)
+      @task = task
+    end
+    
+    def execute
+      # Robocopy has non-zero successful exit codes (http://ss64.com/nt/robocopy-exit.html)
+      @task.execute || $?.exitstatus < 8
     end
   end
 end
