@@ -1,4 +1,4 @@
-All EXE wrappers should follow the same rules. Start with a new file in `lib/tunny`.
+All application wrappers should follow the same rules. Start with a new file in `lib/tunny`.
 
 ```bat
 > notepad lib\tunny\ping.rb
@@ -12,32 +12,11 @@ def ping(*args, &block)
 end
 ```
 
-Every task needs a configuration object, to be yielded to the method call in the rakefile, so that the user can set the properties for this command. Always place the configuration class inside a module named after the EXE.
+Every task needs a configuration object to be yielded to it in the rakefile. Always place the configuration class inside a module named after the application. Inherit from `Cli::Configuration` to get the default properties (`:command`, `:parameters`, `:working_directory`). If the application is expected to be on the user's PATH, override the command property in the constructor.
 
 ```ruby
 module Ping
-  class Configuration
-  end
-end
-```
-
-Always provide the following three read/write fields so that the user can set their own command path, working directory (this is occassionally necessary for native Windows EXEs), and any parameters that you don't take the time to specify.
-
-```ruby
-module Ping
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
-  end
-end
-```
-
-I find it useful to provide the default value for the command property. I use the name of the EXE, but without an extension, in case the user has PATHed it through a batch file or something (think of CLI Chocolatey packages). It also makes the default depend on the user setting up their own path.
-
-```ruby
-module Ping
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
-    
+  class Configuration < Cli::Configuration
     def initialize
       @command = "ping"
     end
@@ -45,7 +24,7 @@ module Ping
 end
 ```
 
-If you're wrapping an EXE that really won't normally be on the path (what?) or can have multiple installed versions, and they have well-known paths, use module level constants. I'm completely making up this example, sorry. But, you get the idea.
+If the application isn't normally be on the PATH, or has many versions, and they have well-known paths, use module constants. I'm completely making up this example, sorry. But, you get the idea.
 
 
 ```ruby
@@ -53,9 +32,7 @@ module Ping
   X86 = File.join ENV["WINDIR"], "system32", "ping.exe"
   X64 = File.join ENV["WINDIR"], "syswow64", "ping.exe"
 
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
-    
+  class Configuration < Cli::Configuration
     def initialize
       @command = "ping"
     end
@@ -63,27 +40,11 @@ module Ping
 end
 ```
 
-Provide regular read/write fields for EXE parameters that need to be assigned by the user. 
+Provide read/write properties for the parameters that need to be assigned by the user. Define methods for "switch" parameters (on/off). Prefer to make the methods "positive" (turning something on or setting something true). And try to keep the names as close to the CLI reference as possible. 
 
 ```ruby
 module Ping
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
-    attr_accessor :target, :count
-    
-    def initialize
-      @command = "ping"
-    end
-  end
-end
-```
-
-Define methods for "switch" parameters, which are parameters that are either present or not, with no value. Try to pick reasonable names. Assign a boolean with the same name. And, please, try to make it a positive assignment (=true).
-
-```ruby
-module Ping
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
+  class Configuration < Cli::Configuration
     attr_accessor :target, :count
     
     def initialize
@@ -97,16 +58,16 @@ module Ping
 end
 ```
 
-Wire up the required method, `args`, that will combine all of the user's configuration into the command line equivalent statement. You should basically shovel items into an array (remember to return it!) as they're set by the user.
+Wire up the required method, `args`, to build up each of the command line parameters. Start by assigning an empty array, shovel your parameters in order, escaping and transforming, as necessary. Shovel the default `@parameters` at the end. And always return the array! Don't depend on implicit return, what if the last statement evauluates `false`?
 
  * Use the form `"#{foo}" if @foo"` to create optional configuration
  * For arrays that require string interpolation, like `"-files #{@files.map { ... }}"`, check if the array is empty or nil by doing `... unless files.empty? if files`. The order is outside-in.
+ * Don't over guard, check, or fiddle with the array, we'll get it at the end.
  
 
 ```ruby
 module Ping
-  class Configuration
-    attr_accessor :command, :parameters, :working_directory
+  class Configuration < Cli::Configuration
     attr_accessor :target, :count
     
     def initialize
@@ -118,6 +79,7 @@ module Ping
       p << @target
       p << "-n #{@count}" if @count
       p << "-f" if @no_fragment
+      p << @parameters if @parameters
       p
     end
     
@@ -136,15 +98,15 @@ def ping(*args, &block)
   block.call config
 
   body = proc {
-    cmd = Windows::Cli config.command, config.args, config.working_directory
-    cmd.execute
+    task = Cli::Task.new config
+    task.execute
   }
 
   Rake::Task.define_task *args, &body
 end
 ```
 
-If you have a task with an optional configuration (somehow your EXE can run bare), you should write the block call like this
+If you have a task with an optional configuration (somehow your application can run bare), you should write the block call like this, or it will fail when the user does not provide a block.
 
 ```ruby
 block.call config if block
