@@ -15,13 +15,25 @@ module Attrib
     attr_accessor :command, :working_directory, :parameters
     attr_accessor :filename
   
+    @map = { readonly: "R", archive: "A", system: "S", hidden: "H" }
+  
     def args
       p = []
       p << @filename.quote
+      p << @set.map { |o| "+#{@map[o]}" }
+      p << @clear.map { |o| "-#{@map[o]}" }
       p << "/S" if @recurse
       p << "/D" if @include_folders
       p << @parameters if @parameters
       p
+    end
+    
+    def set(opts = [])
+      @set = opts
+    end
+    
+    def clear(opts = [])
+      @clear = opts
     end
     
     def recurse
@@ -31,11 +43,5 @@ module Attrib
     def include_folders
       @include_folders = true
     end
-    
-    def to_prefix(bool)
-      bool ? "+" : "-"
-    end
-    
-    private :to_prefix
   end
 end
