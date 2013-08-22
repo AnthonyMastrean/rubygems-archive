@@ -14,7 +14,7 @@ end
 module Robocopy
   class Configuration
     attr_accessor :command, :parameters, :working_directory
-    attr_accessor :source, :destination, :files, :log, :log_append, :exclude_files, :exclude_dirs
+    attr_accessor :source, :destination, :files, :log, :exclude_files, :exclude_dirs
         
     def initialize
       @command = 'robocopy'
@@ -30,7 +30,6 @@ module Robocopy
       p << '/MIR' if @mirror
       p << '/TEE' if @tee
       p << "/LOG:#{@log}" if @log
-      p << "/LOG+:#{@log_append}" if @log_append
       p << '/L' if @dryrun
       p << @parameters if @parameters
       p
