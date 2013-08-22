@@ -20,8 +20,8 @@ module Attrib
     def args
       p = []
       p << @filename.quote
-      p << @set.map { |o| "+#{@map[o]}" }
-      p << @clear.map { |o| "-#{@map[o]}" }
+      p << @set.map { |o| "+#{@map[o]}" } if @set
+      p << @clear.map { |o| "-#{@map[o]}" } if @clear
       p << "/S" if @recurse
       p << "/D" if @include_folders
       p << @parameters if @parameters
