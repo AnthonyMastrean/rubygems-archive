@@ -28,7 +28,7 @@ module Attrib
       p
     end
     
-    def set(opts])
+    def set(opts)
       @set = opts
     end
     
