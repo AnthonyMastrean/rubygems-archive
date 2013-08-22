@@ -3,7 +3,7 @@ def devenv(*args, &block)
   block.call config
   
   body = proc { 
-    cmd = Windows::Cli.new config.command, config.args, config.working_directory
+    cmd = Windows::Cli.new config
     cmd.execute
   }
   
@@ -20,7 +20,7 @@ module Devenv
     attr_accessor :solution, :target, :platform, :configuration
         
     def initialize
-      @command = 'devenv'
+      @command = "devenv"
     end
     
     def args

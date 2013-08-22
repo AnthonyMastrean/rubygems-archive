@@ -3,7 +3,7 @@ def attrib(*args, &block)
   block.call config
 
   body = proc { 
-    cmd = Windows::Cli.new config.command, config.args, config.working_directory
+    cmd = Windows::Cli.new config
     cmd.execute
   }
 
@@ -16,6 +16,10 @@ module Attrib
   class Configuration
     attr_accessor :command, :working_directory, :parameters
     attr_accessor :filename
+
+    def initialize
+      @command = "attrib"
+    end
   
     def args
       p = []
