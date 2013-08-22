@@ -32,12 +32,7 @@ require 'tunny'
 
 And you'll have access to all of the EXE wrappers. Please reference each task's wiki page for it's usage.
 
+ * `attrib`
  * `devenv`
- * `sqlcmd`
  * `robocopy`
-
-There's one other task that's not an EXE wrapper, but is essential to using rake for TFS systems... `writable`. It looks like the built-in `file` task, but please check the wiki page.
-
-```ruby
-writable 'source/CommonAssemblyInfo.cs'
-```
+ * `sqlcmd`
