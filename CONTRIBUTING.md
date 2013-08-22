@@ -58,12 +58,11 @@ module Ping
 end
 ```
 
-Wire up the required method, `args`, to build up each of the command line parameters. Start by assigning an empty array, shovel your parameters in order, escaping and transforming, as necessary. Shovel the default `@parameters` at the end. And always return the array! Don't depend on implicit return, what if the last statement evauluates `false`?
+Wire up the required method, `args`, to build up each of the command line parameters. Start by assigning an empty array. Always add the default `@parameters` at the end. And return the array! Don't depend on implicit return, what if the last statement evauluates `false`? In between, add your parameters in order, escaping and transforming, as necessary.
 
  * Use the form `"#{foo}" if @foo"` to create optional configuration
  * For arrays that require string interpolation, like `"-files #{@files.map { ... }}"`, check if the array is empty or nil by doing `... unless files.empty? if files`. The order is outside-in.
  * Don't over guard, check, or fiddle with the array, we'll get it at the end.
- 
 
 ```ruby
 module Ping
