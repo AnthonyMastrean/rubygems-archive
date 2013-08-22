@@ -11,17 +11,17 @@ def attrib(*args, &block)
 end
 
 module Attrib
+  OPTS = { readonly: "R", archive: "A", system: "S", hidden: "H" }
+
   class Configuration
     attr_accessor :command, :working_directory, :parameters
     attr_accessor :filename
   
-    @map = { readonly: "R", archive: "A", system: "S", hidden: "H" }
-  
     def args
       p = []
+      p << @set.map { |item| "+#{OPTS[item]}" } if @set
+      p << @clear.map { |item| "-#{OPTS[item]}" } if @clear
       p << @filename.quote
-      p << @set.map { |o| "+#{@map[o]}" } if @set
-      p << @clear.map { |o| "-#{@map[o]}" } if @clear
       p << "/S" if @recurse
       p << "/D" if @include_folders
       p << @parameters if @parameters
