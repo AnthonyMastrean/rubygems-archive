@@ -1,4 +1,5 @@
-require "slowcheetr"
+#require "slowcheetr"
+require_relative "../lib/slowcheetr"
 
 task :default do
   puts "pick a task"
