@@ -5,16 +5,17 @@ task :default do
   puts "pick a task"
 end
 
-desc "test the apprc task"
+desc "set the apprc version"
 apprc :apprc do |app|
-  app.files = FileList["**/app.rc"]
-  app.version = "0.0.5.0"
+  app.filename = "app.rc"
+  app.version = "0.0.6.0"
 end
 
-desc "test the appconfig task"
+desc "set the app settings"
 appconfig :appconfig do |app|
-  app.files = FileList["**/*.eappe.config"]
+  app.filename = "app.exe.config"
   app.replacements = {
     "/configuration/applicationSettings/*/setting[@name=\"FullScreen\"]/value" => "True",
-    "/configuration/applicationSettings/*/setting[@name=\"Profile\"]/value" => "Simluation", }
+    "/configuration/applicationSettings/*/setting[@name=\"Profile\"]/value" => "Simluation"
+  }
 end

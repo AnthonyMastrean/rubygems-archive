@@ -1,9 +1,10 @@
 def apprc(*args, &block)
   config = AppResource::Configuration.new
+  config.filename ||= args.first
   block.call config
   
   body = proc {
-    task = AppResource::Task.new config.files, config.version
+    task = AppResource::Task.new config
     task.execute
   }
   
@@ -16,38 +17,33 @@ module AppResource
   DOT_PATTERN   = /(\d+\.\d+\.\d+\.\d+)/
     
   class Configuration
-    attr_accessor :files, :version
+    attr_accessor :filename, :version
   end
   
   class Task  
     @@rx_opt = { mode: "rb", encoding: ENCODING }
     @@wx_opt = { mode: "wb", encoding: ENCODING }
 
-    def initialize(files, version)
-      @files = files
+    def initialize(configuration)
+      @filename = configuration.filename
       
-      @version = version
-      @comma_version = version.gsub(".", ",").encode ENCODING
-      @dot_version = version.encode ENCODING
+      @version = configuration.version
+      @comma_version = @version.gsub(".", ",").encode ENCODING
+      @dot_version = @version.encode ENCODING
       
       @comma_pattern = COMMA_PATTERN.encode ENCODING
       @dot_pattern = DOT_PATTERN.encode ENCODING
     end
     
     def execute
-      @files.each do |file|
-        puts "Updating #{file} to v#{@version}"
-        replace file
-      end
-    end
-    
-    def replace(file)
-      text = File.read file, @@rx_opt
+      puts "Updating #{@filename} to v#{@version}"
+      
+      text = File.read @filename, @@rx_opt
       text.gsub! @comma_pattern, @comma_version
       text.gsub! @dot_pattern, @dot_version
       
-      File.open file, @@wx_opt do |f|
-        f.write text
+      File.open @filename, @@wx_opt do |file|
+        file.write text
       end
     end
   end
