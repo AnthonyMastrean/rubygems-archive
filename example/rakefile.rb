@@ -1,6 +1,6 @@
-require_relative "../lib/tunny"
+require "tunny"
 
-task :default => [ :attrib, :devenv, :robocopy, :sqlcmd ]
+task :default => [:attrib, :devenv, :robocopy, :sqlcmd]
 
 attrib :attrib do |cmd|
   cmd.filename = "CommonAssemblyInfo.cs"
