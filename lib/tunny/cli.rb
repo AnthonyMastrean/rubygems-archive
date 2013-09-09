@@ -1,4 +1,4 @@
-def exec(*args, &block)
+def cli(*args, &block)
   config = Cli::Configuration.new
   block.call config
   
