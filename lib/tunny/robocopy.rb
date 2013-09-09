@@ -20,8 +20,8 @@ module Robocopy
     
     def args
       p = []
-      p << @source
-      p << @destination
+      p << @source.quote
+      p << @destination.quote
       p << (@files.join " ") if @files
       p << "/XF #{@exclude_files.join " "}" if @exclude_files
       p << "/XD #{@exclude_dirs.join " "}" if @exclude_dirs
