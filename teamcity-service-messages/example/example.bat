@@ -1,0 +1,4 @@
+@ECHO OFF
+PUSHD %~dp0
+CALL rake TEAMCITY_PROJECT_NAME="fake" %* 
+POPD
