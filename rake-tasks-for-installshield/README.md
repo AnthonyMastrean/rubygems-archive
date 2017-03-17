@@ -1,5 +1,8 @@
 # Rake Tasks for InstallShield
+
 Modify and build InstallShield 2010 projects. Support for newer versions is coming!
+
+https://rubygems.org/gems/installshield
 
 ## Installation
 Add this line to your application's Gemfile:
